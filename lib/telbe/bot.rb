@@ -146,7 +146,7 @@ module Telbe
     end
 
     def get_command_for(bot)
-      text && text.sub(Regexp.new("@#{bot.identity.username}($|\s|\.|,)", Regexp::IGNORECASE), '').strip
+      text && text.sub(Regexp.new("@#{bot.get_me.username}($|\s|\.|,)", Regexp::IGNORECASE), '').strip
     end
   end
 
