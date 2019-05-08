@@ -1,5 +1,4 @@
 require 'excon'
-require 'virtus'
 require 'json'
 
 require 'telbe/helper'
