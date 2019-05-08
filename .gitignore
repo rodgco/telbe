@@ -2,4 +2,5 @@
 /Gemfile.lock
 /spec/reports/
 /tmp/
+/vendor/
 *.gem

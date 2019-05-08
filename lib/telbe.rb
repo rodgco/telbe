@@ -1,7 +1,7 @@
 require 'excon'
-require 'virtus'
 require 'json'
 
+require 'telbe/helper'
 require 'telbe/webhook'
 require 'telbe/user'
 require 'telbe/contact'
@@ -11,9 +11,3 @@ require 'telbe/media'
 require 'telbe/sticker'
 require 'telbe/location'
 require 'telbe/bot'
-
-module BotEngine
-  def self.new(opts)
-    Bot.new(opts)
-  end
-end

@@ -6,23 +6,10 @@ module Telbe
   end
 
   class Contact
-    include Virtus.model
-    attribute :phone_number, String
-    attribute :first_name, String
-    attribute :last_name, String
-    attribute :user_id, Integer
-    attribute :vcard, String
+    include InitializeFromHash
   end
 
   class ContactDescriptor
-    include Virtus.model
-    attribute :chat_id, Integer or String
-    attribute :phone_number, String
-    attribute :first_name, String
-    attribute :last_name, String
-    attribute :vcard, String
-    attribute :disable_notification, Boolean
-    attribute :reply_to_message_id, Integer
-    attribute :reply_markup, Object #InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply
+    include InitializeFromHash
   end
 end
