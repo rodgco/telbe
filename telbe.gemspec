@@ -17,7 +17,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "excon", ">= 0.64.0"
-  spec.add_dependency "virtus", ">= 1.0.5"
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "minitest"
