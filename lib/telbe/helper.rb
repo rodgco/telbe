@@ -34,6 +34,10 @@ module Telbe
       h
     end
 
+    def to_json
+      self.to_h.to_json
+    end
+    
     def method_missing(m, *args, &block)
       case m
       when /(.*)\=$/
