@@ -16,7 +16,7 @@ module Telbe
             v.collect! { |i| Telbe::const_get(k.to_s.camelize).new(i) }
           end
         end
-        instance_variable_set("@#{k}", v)
+        create_and_set_instance_variable("#{k}", v)
       end
     end
 
@@ -34,13 +34,33 @@ module Telbe
       h
     end
 
-    def method_missing(m, *args, &block)
-      case m
+    def to_json
+      self.to_h.to_json
+    end
+    
+    def method_missing(method_name, *args, &block)
+      case method_name
       when /(.*)\=$/
-        instance_variable_set("@#{$1}", args[0])
+        create_and_set_instance_variable("#{$1}", args[0])
       else
-        instance_variable_get("@#{m}")
+        super(method_name, args, block)
       end
+    end
+
+    def respond_to_missing?(method_name, *args)
+      case method_name
+      when /(.*)\=$/
+        true # always respond to assignment methods
+      else
+        super(method_name, args)
+      end
+    end
+
+    private
+    def create_and_set_instance_variable(name, value)
+      instance_variable_set("@#{name}", value)
+      define_singleton_method("#{name}=") { |arg| instance_variable_set("@#{name}", arg) }
+      define_singleton_method("#{name}") { instance_variable_get("@#{name}") }
     end
   end
 end
