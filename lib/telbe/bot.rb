@@ -9,13 +9,16 @@ module Telbe
     end
 
     def request(action, query = {})
+      puts "### Telbe::Bot.request #{action} - #{query.to_h}"
       path = "/bot#{@token}/#{action}"
       response = @connection.post(path: path, query: query.to_h)
       if response.status == 200
+        puts "### Telbe::Bot.request --- Success"
         body = response.body
         data = JSON.parse(body)
         data["result"]
       else
+        puts "### Telbe::Bot.request --- Error"
         raise ResponseError, response.body
       end
     end
