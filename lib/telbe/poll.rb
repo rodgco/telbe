@@ -13,16 +13,12 @@ module Telbe
   # reply_markup 	InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply 	Optional 	Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
   class PollDescriptor
     include InitializeFromHash
-    def self.factory
-      self.new(
-        chat_id: nil,
-        question: nil,
-        options: [],
-        disable_notification: false,
-        reply_to_message_id: nil,
-        reply_markup: nil
-      )
-    end
+    # attribute :chat_id, Integer, mandatory: true
+    # attribute :question, String, mandatory: true
+    # attribute :options, Array, mandatory: true
+    # attribute :disable_notification, [true, false]
+    # attribute :reply_to_message_id, Integer
+    # attribute :reply_markup, Object
   end
 
   class PollOption

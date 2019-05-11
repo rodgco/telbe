@@ -40,4 +40,8 @@ module Telbe
   class InlineKeyboardButton
     include InitializeFromHash
   end
+
+  class CallbackQuery
+    include InitializeFromHash
+  end
 end

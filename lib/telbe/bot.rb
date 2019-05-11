@@ -63,33 +63,12 @@ module Telbe
   # reply_markup 	InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply 	Optional 	Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
   class MessageDescriptor
     include InitializeFromHash
-    def self.factory
-      new(
-        chat_id: nil,
-        text: "",
-        parse_mode: "", # Markdown or HTML
-        disable_web_page_preview: false,
-        disable_notification: false,
-        reply_to_message_id: nil,
-        reply_markup: nil
-      )
-    end
-
-    def initialize(opts)
-      raise ArgumentError, 'Invalid parse_mode' unless valid_parse_mode? opts[:parse_mode]
-      super opts
-    end
-
-    def parse_mode= (value)
-      value ||= "" # cast nil to the empty string
-      raise ArgumentError, 'Invalid parse_mode' unless valid_parse_mode? value
-      @parse_mode = value
-    end
-
-    private
-    def valid_parse_mode? (value)
-      value =~ /(^Markdown$)|(^HTML$)|(^$)/ # 0 = true
-    end
+    attribute :chat_id, Integer, mandatory: true
+    attribute :text, String, mandatory: true
+    attribute :parse_mode, values: ["Markdown", "HTML", ""], mandatory: true
+    attribute :disable_web_page_preview, values: [true, false]
+    attribute :reply_to_message_id, Integer
+    attribute :reply_markup , Object
   end
 
   class ChatPhoto
@@ -114,8 +93,27 @@ module Telbe
     end
   end
 
+  # update_id 	Integer 	The update‘s unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you’re using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially.
+  # message 	Message 	Optional. New incoming message of any kind — text, photo, sticker, etc.
+  # edited_message 	Message 	Optional. New version of a message that is known to the bot and was edited
+  # channel_post 	Message 	Optional. New incoming channel post of any kind — text, photo, sticker, etc.
+  # edited_channel_post 	Message 	Optional. New version of a channel post that is known to the bot and was edited
+  # inline_query 	InlineQuery 	Optional. New incoming inline query
+  # chosen_inline_result 	ChosenInlineResult 	Optional. The result of an inline query that was chosen by a user and sent to their chat partner. Please see our documentation on the feedback collecting for details on how to enable these updates for your bot.
+  # callback_query 	CallbackQuery 	Optional. New incoming callback query
+  # shipping_query 	ShippingQuery 	Optional. New incoming shipping query. Only for invoices with flexible price
+  # pre_checkout_query 	PreCheckoutQuery 	Optional. New incoming pre-checkout query. Contains full information about checkout
+  # poll 	Poll 	Optional. New poll state. Bots receive only updates about polls, which are sent or stopped by the bot
   class Update
     include InitializeFromHash
+    attribute :update_id, Integer, mandatory: true
+    attribute :message, Message
+    attribute :edited_message, Message
+    attribute :channel_post, Message
+    attribute :inline_query, InlineQuery
+    attribute :chosen_inline_result, ChosenInlineResult
+    attribute :callback_query, CallbackQuery
+    attribute :poll, Poll
   end
 
   class UpdateDescriptor
