@@ -12,19 +12,14 @@ module Telbe
   # reply_to_message_id 	Integer 	Optional 	If the message is a reply, ID of the original message
   # reply_markup 	InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply
   class SendLocationDescriptor
-    include InitializeFromHash
-
-    def self.factory
-      new(
-        chat_id: nil,
-        latitude: nil,
-        longitude: nil,
-        liveperiod: 60,
-        disable_notification: true,
-        reply_to_message_id: nil,
-        reply_markup: nil
-      )
-    end
+    include SimplifyApi
+    attribute :chat_id, Object, mandatory: true # Integer or String
+    attribute :latitude, Float, mandatory: true
+    attribute :longitude, Float, mandatory: true
+    attribute :live_period, Integer
+    attribute :disable_notification, values: [true, false]
+    attribute :reply_to_message_id, Integer
+    attribute :reply_markup, Object
   end
 
   # chat_id 	Integer or String 	Optional 	Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -34,25 +29,20 @@ module Telbe
   # longitude 	Float number 	Yes 	Longitude of new location
   # reply_markup 	InlineKeyboardMarkup 	Optional 	A JSON-serialized object for a new inline keyboard.
   class EditMessageLiveLocationDescriptor
-    include InitializeFromHash
-
-    def self.factory
-      new(
-        chat_id: nil,
-        message_id: nil,
-        inline_message_id: nil,
-        latitude: nil,
-        longitude: nil,
-        reply_markup:nil
-      )
-    end
+    include SimplifyApi
+    attribute :chat_id, Object, mandatory: true # Integer or String
+    attribute :message_id, Integer
+    attribute :inline_message_id, String
+    attribute :latitude, Float, mandatory: true
+    attribute :longitude, Float, mandatory: true
+    attribute :reply_markup, Object
   end
   
   class Location
-    include InitializeFromHash
+    include SimplifyApi
   end
 
   class Venue
-    include InitializeFromHash
+    include SimplifyApi
   end
 end

@@ -6,10 +6,10 @@ module Telbe
   end
 
   class Contact
-    include InitializeFromHash
+    include SimplifyApi
   end
 
   class ContactDescriptor
-    include InitializeFromHash
+    include SimplifyApi
   end
 end

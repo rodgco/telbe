@@ -1,9 +1,9 @@
 module Telbe
   class InlineQuery
-    include InitializeFromHash
+    include SimplifyApi
   end
 
   class ChosenInlineResult
-    include InitializeFromHash
+    include SimplifyApi
   end
 end

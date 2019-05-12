@@ -11,10 +11,14 @@ module Telbe
     def get_chat_members_count(chatid_descriptor)
       request(:getChatMembersCount, chatid_descriptor)
     end
+
+    def get_me
+      User.new(request(:getMe))
+    end
   end
 
   class ChatIdDescriptor
-    include InitializeFromHash
+    include SimplifyApi
     attribute :chat_id, Integer, mandatory: true
   end
 
@@ -25,9 +29,9 @@ module Telbe
   # username 	String 	Optional. User‘s or bot’s username
   # language_code 	String 	Optional. IETF language tag of the user's language
   class User
-    include InitializeFromHash
+    include SimplifyApi
     attribute :id, Integer, mandatory: true
-    attribute :is_bot, [true, false], default: true
+    attribute :is_bot, values: [true, false], mandatory: true
     attribute :first_name, String, mandatory: true
     attribute :last_name, String
     attribute :username, String
@@ -52,23 +56,23 @@ module Telbe
   # can_send_other_messages 	Boolean 	Optional. Restricted only. True, if the user can send animations, games, stickers and use inline bots, implies can_send_media_messages
   # can_add_web_page_previews 	Boolean 	Optional. Restricted only. True, if user may add web page previews to his messages, implies can_send_media_messages
   class ChatMember
-    include InitializeFromHash
+    include SimplifyApi
     attribute :user, User, mandatory: true
     attribute :status, CHAT_MEMBER_STATUS, mandatory: true
     attribute :until_date, Integer
-    attribute :can_be_edited, [true, false]
-    attribute :can_change_info, [true, false]
-    attribute :can_post_messages, [true, false]
-    attribute :can_edit_messages, [true, false]
-    attribute :can_delete_messages, [true, false]
-    attribute :can_invite_users, [true, false]
-    attribute :can_restrict_members, [true, false]
-    attribute :can_pin_messages, [true, false]
-    attribute :can_promote_members, [true, false]
-    attribute :is_member, [true, false]
-    attribute :can_send_messages, [true, false]
-    attribute :can_send_media_messages, [true, false]
-    attribute :can_send_other_messages, [true, false]
-    attribute :can_add_web_page_previews, [true, false]
+    attribute :can_be_edited, values: [true, false]
+    attribute :can_change_info, values: [true, false]
+    attribute :can_post_messages, values: [true, false]
+    attribute :can_edit_messages, values: [true, false]
+    attribute :can_delete_messages, values: [true, false]
+    attribute :can_invite_users, values: [true, false]
+    attribute :can_restrict_members, values: [true, false]
+    attribute :can_pin_messages, values: [true, false]
+    attribute :can_promote_members, values: [true, false]
+    attribute :is_member, values: [true, false]
+    attribute :can_send_messages, values: [true, false]
+    attribute :can_send_media_messages, values: [true, false]
+    attribute :can_send_other_messages, values: [true, false]
+    attribute :can_add_web_page_previews, values: [true, false]
   end
 end

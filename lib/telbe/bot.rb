@@ -33,10 +33,6 @@ module Telbe
       end
     end
 
-    def get_me
-      User.new(request(:getMe))
-    end
-
     def get_chat(chatid_descriptor)
       Chat.new(request(:getChat, chatid_descriptor))
     end
@@ -47,11 +43,11 @@ module Telbe
   end
 
   class MessageEntity
-    include InitializeFromHash
+    include SimplifyApi
   end
 
   class ForceReply
-    include InitializeFromHash
+    include SimplifyApi
   end
 
   # chat_id 	Integer or String 	Yes 	Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -62,25 +58,25 @@ module Telbe
   # reply_to_message_id 	Integer 	Optional 	If the message is a reply, ID of the original message
   # reply_markup 	InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply 	Optional 	Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
   class MessageDescriptor
-    include InitializeFromHash
+    include SimplifyApi
     attribute :chat_id, Integer, mandatory: true
     attribute :text, String, mandatory: true
-    attribute :parse_mode, values: ["Markdown", "HTML", ""], mandatory: true
+    attribute :parse_mode, String, values: ["Markdown", "HTML"]
     attribute :disable_web_page_preview, values: [true, false]
     attribute :reply_to_message_id, Integer
     attribute :reply_markup , Object
   end
 
   class ChatPhoto
-    include InitializeFromHash
+    include SimplifyApi
   end
 
   class Chat
-    include InitializeFromHash
+    include SimplifyApi
   end
 
   class Message
-    include InitializeFromHash
+    include SimplifyApi
 
     def reply(&block)
       reply = MessageDescriptor.new(chat_id: chat.id)
@@ -105,7 +101,7 @@ module Telbe
   # pre_checkout_query 	PreCheckoutQuery 	Optional. New incoming pre-checkout query. Contains full information about checkout
   # poll 	Poll 	Optional. New poll state. Bots receive only updates about polls, which are sent or stopped by the bot
   class Update
-    include InitializeFromHash
+    include SimplifyApi
     attribute :update_id, Integer, mandatory: true
     attribute :message, Message
     attribute :edited_message, Message
@@ -117,7 +113,7 @@ module Telbe
   end
 
   class UpdateDescriptor
-    include InitializeFromHash
+    include SimplifyApi
   end
 
   class ResponseError < StandardError

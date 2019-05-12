@@ -1,34 +1,34 @@
 module Telbe
   class PhotoSize
-    include InitializeFromHash
+    include SimplifyApi
   end
 
   class Animation
-    include InitializeFromHash
+    include SimplifyApi
   end
 
   class Document
-    include InitializeFromHash
+    include SimplifyApi
   end
 
   class Audio
-    include InitializeFromHash
+    include SimplifyApi
   end
 
   class Video
-    include InitializeFromHash
+    include SimplifyApi
   end
 
   class Voice
-    include InitializeFromHash
+    include SimplifyApi
   end
 
   class VideoNote
-    include InitializeFromHash
+    include SimplifyApi
   end
 
   class InputMedia
-    include InitializeFromHash
+    include SimplifyApi
   end
     
   class InputMediaAnimation < InputMedia

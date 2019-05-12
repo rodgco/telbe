@@ -1,7 +1,7 @@
 require 'excon'
 require 'json'
+require 'simplify_api'
 
-require 'telbe/helper'
 require 'telbe/webhook'
 require 'telbe/user'
 require 'telbe/contact'

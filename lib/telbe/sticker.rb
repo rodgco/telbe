@@ -3,14 +3,14 @@ module Telbe
   end
 
   class MaskPosition
-    include InitializeFromHash
+    include SimplifyApi
   end
 
   class Sticker
-    include InitializeFromHash
+    include SimplifyApi
   end
 
   class StickerSet
-    include InitializeFromHash
+    include SimplifyApi
   end
 end

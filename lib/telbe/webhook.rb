@@ -14,14 +14,14 @@ module Telbe
   end
   
   class WebHookInfo
-    include InitializeFromHash
+    include SimplifyApi
   end
 
   class InputFile
-    include InitializeFromHash
+    include SimplifyApi
   end
   
   class WebHookDescriptor
-    include InitializeFromHash
+    include SimplifyApi
   end
 end

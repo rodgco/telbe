@@ -12,20 +12,20 @@ module Telbe
   # reply_to_message_id 	Integer 	Optional 	If the message is a reply, ID of the original message
   # reply_markup 	InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply 	Optional 	Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
   class PollDescriptor
-    include InitializeFromHash
-    # attribute :chat_id, Integer, mandatory: true
-    # attribute :question, String, mandatory: true
-    # attribute :options, Array, mandatory: true
-    # attribute :disable_notification, [true, false]
-    # attribute :reply_to_message_id, Integer
-    # attribute :reply_markup, Object
+    include SimplifyApi
+    attribute :chat_id, Object, mandatory: true # Integer or String
+    attribute :question, String, mandatory: true
+    attribute :options, [String], mandatory: true # 2-10 strings 1-100 characters each
+    attribute :disable_notification, values: [true, false]
+    attribute :reply_to_message_id, Integer
+    attribute :reply_markup, Object
   end
 
   class PollOption
-    include InitializeFromHash
+    include SimplifyApi
   end
 
   class Poll
-    include InitializeFromHash
+    include SimplifyApi
   end
 end
