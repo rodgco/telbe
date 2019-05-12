@@ -21,11 +21,23 @@ module Telbe
     attribute :reply_markup, Object
   end
 
+  # text 	String 	Option text, 1-100 characters
+  # voter_count 	Integer 	Number of users that voted for this option
   class PollOption
     include SimplifyApi
+    attribute :text, String, mandatory: true
+    attribute :voter_count, Integer, mandatory: true
   end
 
+  # id 	String 	Unique poll identifier
+  # question 	String 	Poll question, 1-255 characters
+  # options 	Array of PollOption 	List of poll options
+  # is_closed 	Boolean 	True, if the poll is closed
   class Poll
     include SimplifyApi
+    attribute :id, String, mandatory: true
+    attribute :question, String, mandatory: true
+    attribute :options, [PollOption]
+    attribute :is_closed, values: [true, false]
   end
 end

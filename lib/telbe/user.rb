@@ -38,6 +38,20 @@ module Telbe
     attribute :language_code, String
   end
 
+  # Created to nest the arrays in UserProfilePhotos
+  class UserProfilePhoto
+    include SimplifyApi
+    attribute :photo, [PhotoSize]
+  end
+
+  # total_count 	Integer 	Total number of profile pictures the target user has
+  # photos 	Array of Array of PhotoSize 	Requested profile pictures (in up to 4 sizes each)
+  class UserProfilePhotos
+    include SimplifyApi
+    attribute :total_count, Integer
+    attribute :photos, [UserProfilePhoto]
+  end
+
   # user 	User 	Information about the user
   # status 	String 	The member's status in the chat. Can be "creator", "administrator", "member", "restricted", "left" or "kicked"
   # until_date 	Integer 	Optional. Restricted and kicked only. Date when restrictions will be lifted for this user, unix time

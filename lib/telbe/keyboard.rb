@@ -9,6 +9,12 @@ module Telbe
     attribute :request_location, values: [true, false]
   end
 
+  # Created to nest the arrays in ReplyKeyboardMarkup
+  class KeyboardButtons
+    include SimplifyApi
+    attribute :keyboard_button, [KeyboardButton]
+  end
+
   class ReplyKeyboardRemove
     include SimplifyApi
   end
@@ -19,7 +25,7 @@ module Telbe
   # selective 	Boolean 	Optional. Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply (has reply_to_message_id), sender of the original message.
   class ReplyKeyboardMarkup
     include SimplifyApi
-    attribute :keyboard, [[KeyboardButton]], mandatory: true
+    attribute :keyboard, [KeyboardButtons], mandatory: true
     attribute :resize_keyboard, values: [true, false]
     attribute :one_time_keyboard, values: [true, false]
     attribute :selective, values: [true, false]
