@@ -12,24 +12,32 @@ module Telbe
   # reply_to_message_id 	Integer 	Optional 	If the message is a reply, ID of the original message
   # reply_markup 	InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply 	Optional 	Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
   class PollDescriptor
-    include InitializeFromHash
-    def self.factory
-      self.new(
-        chat_id: nil,
-        question: nil,
-        options: [],
-        disable_notification: false,
-        reply_to_message_id: nil,
-        reply_markup: nil
-      )
-    end
+    include SimplifyApi
+    attribute :chat_id, Object, mandatory: true # Integer or String
+    attribute :question, String, mandatory: true
+    attribute :options, [String], mandatory: true # 2-10 strings 1-100 characters each
+    attribute :disable_notification, values: [true, false]
+    attribute :reply_to_message_id, Integer
+    attribute :reply_markup, Object
   end
 
+  # text 	String 	Option text, 1-100 characters
+  # voter_count 	Integer 	Number of users that voted for this option
   class PollOption
-    include InitializeFromHash
+    include SimplifyApi
+    attribute :text, String, mandatory: true
+    attribute :voter_count, Integer, mandatory: true
   end
 
+  # id 	String 	Unique poll identifier
+  # question 	String 	Poll question, 1-255 characters
+  # options 	Array of PollOption 	List of poll options
+  # is_closed 	Boolean 	True, if the poll is closed
   class Poll
-    include InitializeFromHash
+    include SimplifyApi
+    attribute :id, String, mandatory: true
+    attribute :question, String, mandatory: true
+    attribute :options, [PollOption]
+    attribute :is_closed, values: [true, false]
   end
 end
