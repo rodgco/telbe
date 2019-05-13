@@ -168,7 +168,6 @@ module Telbe
   # thumb_height 	Integer 	Optional. Thumbnail height
   class InlineQueryResultArticle < InlineQueryResult
     attribute :title, String, mandatory: true
-    attribute :input_message_content, InputMessageContent, mandatory: true
     attribute :url, String
     attribute :hide_url, values: [true, false]
     attribute :description, String

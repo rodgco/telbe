@@ -51,7 +51,7 @@ module Telbe
     attribute :callback_data, String
     attribute :switch_inline_query, String
     attribute :switch_inline_query_current_chat, String
-    attribute :callback_game, CallbackGame
+    # attribute :callback_game, CallbackGame
     attribute :pay, values: [true, false]   
   end
 
@@ -65,6 +65,10 @@ module Telbe
   class InlineKeyboardMarkup
     include SimplifyApi
     attribute :inline_keyboard, [InlineKeyboardLine], mandatory: true
+  end
+
+  # Dummy
+  class Message
   end
 
   # id 	String 	Unique identifier for this query

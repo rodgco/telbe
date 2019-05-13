@@ -42,7 +42,7 @@ module Telbe
     attribute :offset, Integer, mandatory: true
     attribute :length, Integer, mandatory: true
     attribute :url, String
-    attribute :user, User   
+    attribute :user, User
   end
 
   # force_reply 	True 	Shows reply interface to the user, as if they manually selected the bot‘s message and tapped ’Reply'
@@ -67,7 +67,7 @@ module Telbe
     attribute :parse_mode, String, values: ["Markdown", "HTML"]
     attribute :disable_web_page_preview, values: [true, false]
     attribute :reply_to_message_id, Integer
-    attribute :reply_markup , Object
+    attribute :reply_markup, Object
   end
 
   # message_id 	Integer 	Unique message identifier inside this chat
