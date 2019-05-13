@@ -29,22 +29,28 @@ module Telbe
         Update.new(update)
       end
     end
-
-    def get_chat(chatid_descriptor)
-      Chat.new(request(:getChat, chatid_descriptor))
-    end
-
-    def send_chat_action(send_chat_action_descriptor)
-      request(:sendChatAction, send_chat_action_descriptor)
-    end
   end
 
+  # type 	String 	Type of the entity. Can be mention (@username), hashtag, cashtag, bot_command, url, email, phone_number, bold (bold text), italic (italic text), code (monowidth string), pre (monowidth block), text_link (for clickable text URLs), text_mention (for users without usernames)
+  # offset 	Integer 	Offset in UTF-16 code units to the start of the entity
+  # length 	Integer 	Length of the entity in UTF-16 code units
+  # url 	String 	Optional. For “text_link” only, url that will be opened after user taps on the text
+  # user 	User 	Optional. For “text_mention” only, the mentioned user
   class MessageEntity
     include SimplifyApi
+    attribute :type, String, mandatory: true
+    attribute :offset, Integer, mandatory: true
+    attribute :length, Integer, mandatory: true
+    attribute :url, String
+    attribute :user, User   
   end
 
+  # force_reply 	True 	Shows reply interface to the user, as if they manually selected the bot‘s message and tapped ’Reply'
+  # selective 	Boolean 	Optional. Use this parameter if you want to force reply from specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply (has reply_to_message_id), sender of the original message.
   class ForceReply
     include SimplifyApi
+    attribute :force_reply, values: [true], mandatory: true
+    attribute :selective, values: [true, false]
   end
 
   # chat_id 	Integer or String 	Yes 	Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -62,51 +68,6 @@ module Telbe
     attribute :disable_web_page_preview, values: [true, false]
     attribute :reply_to_message_id, Integer
     attribute :reply_markup , Object
-  end
-
-  class ChatPhoto
-    include SimplifyApi
-  end
-
-  class Message # Dummy
-  end
-
-  # id 	Integer 	Unique identifier for this chat. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
-  # type 	String 	Type of chat, can be either “private”, “group”, “supergroup” or “channel”
-  # title 	String 	Optional. Title, for supergroups, channels and group chats
-  # username 	String 	Optional. Username, for private chats, supergroups and channels if available
-  # first_name 	String 	Optional. First name of the other party in a private chat
-  # last_name 	String 	Optional. Last name of the other party in a private chat
-  # all_members_are_administrators 	Boolean 	Optional. True if a group has ‘All Members Are Admins’ enabled.
-  # photo 	ChatPhoto 	Optional. Chat photo. Returned only in getChat.
-  # description 	String 	Optional. Description, for supergroups and channel chats. Returned only in getChat.
-  # invite_link 	String 	Optional. Chat invite link, for supergroups and channel chats. Each administrator in a chat generates their own invite links, so the bot must first generate the link using exportChatInviteLink. Returned only in getChat.
-  # pinned_message 	Message 	Optional. Pinned message, for groups, supergroups and channels. Returned only in getChat.
-  # sticker_set_name 	String 	Optional. For supergroups, name of group sticker set. Returned only in getChat.
-  # can_set_sticker_set 	Boolean 	Optional. True, if the bot can change the group sticker set. Returned only in getChat.
-  class Chat
-    include SimplifyApi
-    attribute :id, Integer, mandatory: true
-    attribute :type, String, mandatory: true, values: ["private", "group", "supergroup", "channel"]
-    attribute :title, String
-    attribute :username, String
-    attribute :first_name, String
-    attribute :last_name, String
-    attribute :all_members_are_administrators, values: [true, false]
-    attribute :photo, ChatPhoto
-    attribute :description, String
-    attribute :invite_link, String
-    attribute :pinned_message, Message
-    attribute :sticker_set_name, String
-    attribute :can_set_sticker_set, values: [true, false]
-  end
-
-  # chat_id 	Integer or String 	Yes 	Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-  # action 	String 	Yes 	Type of action to broadcast. Choose one, depending on what the user is about to receive: typing for text messages, upload_photo for photos, record_video or upload_video for videos, record_audio or upload_audio for audio files, upload_document for general files, find_location for location data, record_video_note or upload_video_note for video notes.
-  class SendChatActionDescriptor
-    include SimplifyApi
-    attribute :chat_id, Object, mandatory: true
-    attribute :action, String, values: ["typing", "upload_photo", "record_video", "upload_video", "record_audio", "upload_audio", "upload_document", "find_location", "record_video_note", "upload_video_note"]
   end
 
   # message_id 	Integer 	Unique message identifier inside this chat

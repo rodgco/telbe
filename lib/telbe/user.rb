@@ -2,24 +2,13 @@ module Telbe
   CHAT_MEMBER_STATUS = ["creator", "administrator", "member", "restricted", "left", "kicked"]
 
   class Bot
-    def get_chat_administrators(chatid_descriptor)
-      request(:getChatAdministrators, chatid_descriptor).collect do |member_hash|
-        ChatMember.new(member_hash)
-      end
-    end
-
-    def get_chat_members_count(chatid_descriptor)
-      request(:getChatMembersCount, chatid_descriptor)
-    end
-
     def get_me
       User.new(request(:getMe))
     end
-  end
 
-  class ChatIdDescriptor
-    include SimplifyApi
-    attribute :chat_id, Integer, mandatory: true
+    def get_user_profile_photos(get_user_profile_photos_descriptor)
+      UserProfilePhotos.new(request(:getUserProfilePhotos, get_user_profile_photos_descriptor))
+    end
   end
 
   # id 	Integer 	Unique identifier for this user or bot
@@ -41,15 +30,25 @@ module Telbe
   # Created to nest the arrays in UserProfilePhotos
   class UserProfilePhoto
     include SimplifyApi
-    attribute :photo, [PhotoSize]
+    attribute :photo, [PhotoSize], mandatory: true, invisible: true
   end
 
   # total_count 	Integer 	Total number of profile pictures the target user has
   # photos 	Array of Array of PhotoSize 	Requested profile pictures (in up to 4 sizes each)
   class UserProfilePhotos
     include SimplifyApi
-    attribute :total_count, Integer
-    attribute :photos, [UserProfilePhoto]
+    attribute :total_count, Integer, mandatory: true
+    attribute :photos, [UserProfilePhoto], mandatory: true
+  end
+
+  # user_id 	Integer 	Yes 	Unique identifier of the target user
+  # offset 	Integer 	Optional 	Sequential number of the first photo to be returned. By default, all photos are returned.
+  # limit 	Integer 	Optional 	Limits the number of photos to be retrieved. Values between 1—100 are accepted. Defaults to 100.
+  def GetUserProfilePhotosDescriptor
+    include SimplifyApi
+    attribute :user_id, Integer, mandatory: true
+    attribute :offset, Integer
+    attribute :limit, Integer
   end
 
   # user 	User 	Information about the user

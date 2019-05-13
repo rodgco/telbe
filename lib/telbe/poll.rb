@@ -3,6 +3,10 @@ module Telbe
     def send_poll(poll_descriptor)
       Message.new(request(:sendPoll, poll_descriptor))
     end
+
+    def stop_poll(stop_poll_descriptor)
+      Poll.new(request(:stopPoll, stop_poll_descriptor))
+    end
   end
 
   # chat_id 	Integer or String 	Yes 	Unique identifier for the target chat or username of the target channel (in the format @channelusername). A native poll can't be sent to a private chat.
@@ -39,5 +43,15 @@ module Telbe
     attribute :question, String, mandatory: true
     attribute :options, [PollOption]
     attribute :is_closed, values: [true, false]
+  end
+
+  # chat_id 	Integer or String 	Yes 	Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+  # message_id 	Integer 	Yes 	Identifier of the original message with the poll
+  # reply_markup 	InlineKeyboardMarkup 	Optional 	A JSON-serialized object for a new message inline keyboard.
+  class StopPollDescriptor
+    include SimplifyApi
+    attribute :chat_id, Object, mandatory: true # Integer or String
+    attribute :message_id, Integer
+    attribute :reply_markup, Object
   end
 end
