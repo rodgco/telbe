@@ -25,5 +25,17 @@ module Telbe
       base.send(:attribute, :caption, String)
       base.send(:attribute, :parse_mode, String, values: ["Markdown", "HTML"])
     end
-  end  
+  end
+  
+  class InlineQueryResult
+    def self.inherited(base)
+      base.send(:include, SimplifyApi)
+      base.send(:attribute, :type, String, mandatory: true)
+      base.send(:attribute, :id, String, mandatory: true)
+      base.send(:attribute, :caption, String)
+      base.send(:attribute, :parse_mode, String, values: ["Markdown", "HTML"])
+      base.send(:attribute, :reply_markup, InlineKeyboardMarkup)
+      base.send(:attribute, :input_message_content, Object)
+    end
+  end
 end

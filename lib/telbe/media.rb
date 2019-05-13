@@ -4,6 +4,10 @@ module Telbe
       "https://api.telegram.org/file/bot#{@token}/#{file.file_path}"
     end
 
+    def get_file(get_file_descriptor)
+      File.new(request(:getFile, get_file_descriptor))
+    end
+
     def send_photo(send_photo_descriptor)
       Message.new(request(:sendPhoto, send_photo_descriptor))
     end
