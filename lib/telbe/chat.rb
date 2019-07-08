@@ -106,7 +106,7 @@ module Telbe
   class Chat
     include SimplifyApi
     attribute :id, Integer, mandatory: true
-    attribute :type, String, mandatory: true, values: ["private", "group", "supergroup", "channel"]
+    attribute :type, String, mandatory: true, values: %w[private group supergroup channel]
     attribute :title, String
     attribute :username, String
     attribute :first_name, String

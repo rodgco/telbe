@@ -4,3 +4,5 @@
 /tmp/
 /vendor/
 *.gem
+/.ruby-gemset
+/.ruby-version

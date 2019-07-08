@@ -52,7 +52,7 @@ module Telbe
     attribute :switch_inline_query, String
     attribute :switch_inline_query_current_chat, String
     # attribute :callback_game, CallbackGame
-    attribute :pay, values: [true, false]   
+    attribute :pay, values: [true, false]
   end
 
   # Created to nest the arrays in InlineKeyboardMarkup
