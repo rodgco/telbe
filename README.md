@@ -4,9 +4,9 @@ A complete ruby client that implements [Telegram's Bot API](https://core.telegra
 
 Ruby is such a beautiful and productive language.
 
-[Virtus](https://github.com/solnic/virtus) is heavilly used, mainly because it's easy to instantiate objects from hashes, even complex objects. Virtus is deprecated, at a future release we'll evaulate differente approaches to address the problem.
+SimplifyApi is being used to automagicaly objectify JSON and JSONify objects, it also implements a "safe" environment to accomodate future API specifications without too much burden.
 
-Currently under heavy development.
+Currently under heavy development (or maybe not!).
 
 Please [collaborate](https://github.com/rodgco/telbe/issues/new) with your questions, ideas or problems!
 

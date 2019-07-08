@@ -1,4 +1,8 @@
+# frozen_string_literal: true
+
+# The main module that agregates all classes
 module Telbe
+
   class Bot
     ENDPOINT = 'https://api.telegram.org/'
 
@@ -11,13 +15,11 @@ module Telbe
     def request(action, query = {})
       path = "/bot#{@token}/#{action}"
       response = @connection.post(path: path, query: query.to_h)
-      if response.status == 200
-        body = response.body
-        data = JSON.parse(body)
-        data["result"]
-      else
-        raise ResponseError, response.body
-      end
+      raise ResponseError, response.body unless response.status == 200
+
+      body = response.body
+      data = JSON.parse(body)
+      data['result']
     end
 
     def send_message(message_descriptor)
@@ -49,8 +51,8 @@ module Telbe
   # selective 	Boolean 	Optional. Use this parameter if you want to force reply from specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply (has reply_to_message_id), sender of the original message.
   class ForceReply
     include SimplifyApi
-    attribute :force_reply, values: [true], mandatory: true
-    attribute :selective, values: [true, false]
+    attribute :force_reply, values: [true], mandatory: true, default: true
+    attribute :selective, values: [true, false], default: true
   end
 
   # chat_id 	Integer or String 	Yes 	Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -64,8 +66,8 @@ module Telbe
     include SimplifyApi
     attribute :chat_id, Integer, mandatory: true
     attribute :text, String, mandatory: true
-    attribute :parse_mode, String, values: ["Markdown", "HTML"]
-    attribute :disable_web_page_preview, values: [true, false]
+    attribute :parse_mode, String, values: %w[Markdown HTML], default: 'Markdown'
+    attribute :disable_web_page_preview, values: [true, false], default: false
     attribute :reply_to_message_id, Integer
     attribute :reply_markup, Object
   end
@@ -153,10 +155,10 @@ module Telbe
     attribute :left_chat_member, User
     attribute :new_chat_title, String
     attribute :new_chat_photo, [PhotoSize]
-    attribute :delete_chat_photo, values: [true]
-    attribute :group_chat_created, values: [true]
-    attribute :supergroup_chat_created, values: [true]
-    attribute :channel_chat_created, values: [true]
+    # attribute :delete_chat_photo, values: [true], default: true
+    # attribute :group_chat_created, values: [true], default: true
+    # attribute :supergroup_chat_created, values: [true], default: true
+    # attribute :channel_chat_created, values: [true], default: true
     attribute :migrate_to_chat_id, Integer
     attribute :migrate_from_chat_id, Integer
     attribute :pinned_message, Message
@@ -184,7 +186,7 @@ module Telbe
     include SimplifyApi
     attribute :chat_id, Object, mandatory: true
     attribute :from_chat_id, Object, mandatory: true
-    attribute :disable_notification, values: [true, false]
+    attribute :disable_notification, values: [true, false], default: true
     attribute :message_id, Integer, mandatory: true
   end
 
