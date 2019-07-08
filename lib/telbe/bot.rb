@@ -65,7 +65,7 @@ module Telbe
   class MessageDescriptor
     include SimplifyApi
     attribute :chat_id, Integer, mandatory: true
-    attribute :text, String, mandatory: true
+    attribute :text, String, mandatory: true, default: ''
     attribute :parse_mode, String, values: %w[Markdown HTML], default: 'Markdown'
     attribute :disable_web_page_preview, values: [true, false], default: false
     attribute :reply_to_message_id, Integer
